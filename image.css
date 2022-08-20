@@ -1,0 +1,63 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* font-size: 10px; */
+
+  /* 10px / 16px = 0.625 = 62.5% */
+  /* Percentage of user's browser font-size setting */
+  font-size: 62.5%;
+  overflow-x: hidden;
+  font-family: sans-serif, Arial, Helvetica;
+}
+
+.cm-container {
+  background-color: brown;
+  position: relative;
+  left: 200px;
+}
+
+.cm-background-box {
+  background-color: rgb(217, 255, 0);
+  /* height: 700px; */
+}
+
+.cm-background-img {
+  /* object-fit: cover; */
+  width: 100%;
+}
+
+.cm-interact-area-template,
+.cm-interact-area {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  /* width: 6%;
+  height: 6%; */
+  /* transform: translate(-50%, -50%); */
+  transform: translate(-5px, -5px);
+}
+
+.cm-circle-icon {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 10px;
+  height: 10px;
+}
+.cm-info-box {
+  background-color: aquamarine;
+  margin-left: 20px;
+  padding: 10px 16px;
+  max-width: 200px;
+}
+.cm-infobox-headline {
+  font-weight: 800;
+}
+
+.cm-info-box.hidden {
+  display: none;
+}
