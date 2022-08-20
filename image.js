@@ -117,4 +117,4 @@ function getPercPos(e, elem) {
   return { xPerc, yPerc };
 }
 
-// test 2
+// test
