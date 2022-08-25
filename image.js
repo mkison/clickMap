@@ -16,8 +16,13 @@ cmContainer.addEventListener(
   // { once: true }
 );
 
+cmContainer.addEventListener("dragover", function (e) {
+  e.preventDefault();
+});
+
 function createBtnObject(e) {
   console.log("createBtnObject");
+
   // close all info boxes
   hideInfoBoxes();
 
@@ -46,13 +51,17 @@ function createBtnObject(e) {
       "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor..."
     );
 
+    // set Perc Pos
     this.setPercPos = function (e, parElem) {
       //calc rel position
-      let bounds = parElem.getBoundingClientRect();
-      let offsetX = bounds.left;
-      let offsetY = bounds.top;
-      let x = e.clientX - offsetX;
+      const bounds = parElem.getBoundingClientRect();
+      const offsetX = bounds.left;
+      const offsetY = bounds.top;
+      const x = e.clientX - offsetX;
       const y = e.clientY - offsetY;
+      console.log(`
+      e.clientX ${e.clientX}
+      e.clientY ${e.clientY}`);
 
       // map rel pos to %  and set
       this.x = 100 / (parElem.clientWidth / x);
@@ -60,7 +69,7 @@ function createBtnObject(e) {
       this.node.style.left = this.x + "%";
       this.node.style.top = this.y + "%";
 
-      return this.x;
+      return { x: this.x, y: this.y };
     };
     this.setPercPos(e, parElem);
 
@@ -77,24 +86,22 @@ function createBtnObject(e) {
       true // useCapture to fire this one before being dispatched to any EventTarget beneath it
     );
 
+    let xTmp;
     //listener to drag
-    cmCircleIcon.addEventListener(
-      "drag",
-      function (ev) {
-        // e.stopPropagation();
-        e.preventDefault();
-        // console.log(`xPercPos ${this.setPercPos(ev, cmContainer)}`);
-        console.log(`xPercPos ${ev.clientX}`);
+    cmCircleIcon.addEventListener("drag", function (ev) {
+      xTmp = newArea.setPercPos(ev, parElem).x;
+      console.log(`xTmp ${xTmp}`);
+    });
 
-        //x = newArea.node.style.left = getPercPos(e, cmContainer)["xPerc"] + "%";
-        //newArea.node.style.top = getPercPos(e, cmContainer)["yPerc"] + "%";
+    // cmCircleIcon.addEventListener("dragstart", function (ev) {
+    //   xTmp = newArea.setPercPos(ev, parElem).x;
+    //   console.log(`UP xTmp ${xTmp}`);
+    // });
 
-        // percPos = getPercPos(e, cmContainer);
-        // x = percPos.xPerc;
-        // y = percPos.yPerc;
-      },
-      true
-    );
+    // //listener to dragend
+    // cmCircleIcon.addEventListener("dragend", function (ev) {
+    //   newArea.setPercPos(ev, parElem);
+    // });
   }
 
   // create a new interaction area
